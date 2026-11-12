@@ -1,0 +1,23 @@
+// Static Astro site on Cloudflare Workers. Cloudflare serves dist/ as static assets; requests
+// to /api/* run worker/index.ts first. There is no Astro server adapter.
+// Deploy: npm run deploy
+// https://developers.cloudflare.com/workers/static-assets/
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "astro-starter",
+    "compatibility_date": "2026-10-27",
+    "main": "./worker/index.ts",
+    "assets": {
+        "directory": "./dist",
+        "binding": "ASSETS",
+        "not_found_handling": "404-page",
+        "run_worker_first": ["/api/*"]
+    },
+    "vars": {
+        // The waitlist form's Turnstile site key. The secret key is a Worker secret.
+        "TURNSTILE_SITE_KEY": "0x4AAAAAAADv9xQm2kLp7rTs"
+    },
+    "observability": {
+        "enabled": true
+    }
+}

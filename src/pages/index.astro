@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Astro starter">
+    <h1 class="text-4xl font-bold tracking-tight">Astro starter</h1>
+    <p class="mt-4 text-lg text-slate-600">
+        Edit <code class="rounded bg-slate-100 px-1.5 py-0.5">src/pages/index.astro</code> to get started.
+    </p>
+
+    <section class="mt-12 rounded-xl border border-slate-200 p-6" aria-labelledby="waitlist-heading">
+        <h2 id="waitlist-heading" class="text-xl font-semibold">Join the waitlist</h2>
+        <p class="mt-1 text-slate-600">Leave your email and we'll tell you when it's ready.</p>
+        <form id="waitlist" class="mt-4 flex flex-col gap-3" novalidate>
+            <label class="flex flex-col gap-1 text-sm font-medium">
+                Email
+                <input
+                    name="email"
+                    type="email"
+                    required
+                    autocomplete="email"
+                    class="rounded-md border border-slate-300 px-3 py-2 text-base font-normal"
+                />
+            </label>
+            <div data-turnstile></div>
+            <button
+                type="submit"
+                disabled
+                class="self-start rounded-md bg-slate-900 px-4 py-2 font-medium text-white disabled:opacity-50"
+            >
+                Join
+            </button>
+            <p role="status" class="text-sm text-slate-600"></p>
+        </form>
+    </section>
+</BaseLayout>
+
+<script>
+    import { mountWaitlist } from '@/scripts/waitlist';
+
+    void mountWaitlist(document.getElementById('waitlist') as HTMLFormElement);
+</script>
